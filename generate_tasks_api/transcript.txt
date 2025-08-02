@@ -1,0 +1,28 @@
+Meeting Transcript
+Date: August 2, 2025
+ Participants:
+Christie – Product Manager
+
+
+Manager – Christie’s Direct Manager
+
+
+
+Manager:
+ Thanks for hopping on, Christie. I wanted to check in about MapEasy and where we’re headed next with it.
+Christie:
+ Sure — we’ve been watching usage patterns closely. Navigation’s solid, but discovery features could use more engagement.
+Manager:
+ Right, and that’s why I wanted to raise something. We’ve been thinking — what if we integrated MapEasy with our Reviews app?
+Christie:
+ Ah, so like showing nearby restaurants or businesses along with user ratings and comments?
+Manager:
+ Exactly. It could drive more usage and make our maps more useful in context. Can you talk to Jane from the Reviews team about how this might work?
+Christie:
+ Will do. I’ll set something up with her and explore integration options.
+Manager:
+ Great. Let’s aim for an initial proposal by next week.
+Christie:
+ You got it. Thanks!
+
+
