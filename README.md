@@ -1,6 +1,8 @@
 # AGIHouse_CloneMe
 Clone me so I don't need to make this phone call! 
 
+## Architecture
+https://docs.google.com/drawings/d/1Ky5M7jLHlnTaymkUq50rNUKajuXyqPTLvEGs45hiuuo/edits
 
 ## Transcript -> Tasks (generate_tasks_api)
 
