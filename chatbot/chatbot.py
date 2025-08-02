@@ -1,12 +1,21 @@
-import openai
 import os
+import openai
 
-openai.api_key = os.getenv("OPENAI_API_KEY")
+client = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-def ask_chatbot(prompt, model="gpt-3.5-turbo"):
-    response = openai.ChatCompletion.create(
+def simulate_conversation(transcript: str, task: str, model="gpt-3.5-turbo"):
+    messages = [
+        {"role": "system", "content": "You simulate realistic follow-up conversations between colleagues based on meeting transcripts."},
+        {"role": "user", "content": f"""Meeting Transcript:
+{transcript}
+
+Now, simulate the conversation that would happen if the task "{task}" were carried out. Write it as a dialogue between the relevant people. Keep it natural and relevant to the context of the meeting."""}
+    ]
+
+    response = client.chat.completions.create(
         model=model,
-        messages=[{"role": "user", "content": prompt}],
-        temperature=0.7,
+        messages=messages,
+        temperature=0.7
     )
-    return response['choices'][0]['message']['content']
+
+    return response.choices[0].message.content
