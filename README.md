@@ -25,3 +25,14 @@ jq -Rs '{transcript: .}' transcript.txt | curl -X POST http://54.91.226.222:8000
   -H "Content-Type: application/json" \
   -d @-
 ``` 
+
+### How to run this one in the backend
+- inside the AWS VM run 
+
+```
+nohup uvicorn generate_tasks:app --host 0.0.0.0 --port 8000 > uvicorn.log 2>&1 &
+```
+but that keeps it in the foreground so put it in the background with
+`ps aux | grep uvicorn` check to see the PID
+`kill <PID>`
+ 
