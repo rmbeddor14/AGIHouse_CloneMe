@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meeting Agent Frontend</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+        }
+        
+        .section h2 {
+            color: #555;
+            margin-top: 0;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        button:hover {
+            background: #0056b3;
+        }
+        
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 6px;
+            background: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+        
+        .error {
+            background: #f8d7da;
+            border-left-color: #dc3545;
+            color: #721c24;
+        }
+        
+        .success {
+            background: #d4edda;
+            border-left-color: #28a745;
+            color: #155724;
+        }
+        
+        .task-item {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 6px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .task-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .task-details {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .priority-high { border-left: 4px solid #dc3545; }
+        .priority-medium { border-left: 4px solid #ffc107; }
+        .priority-low { border-left: 4px solid #28a745; }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .status-pending { background: #fff3cd; color: #856404; }
+        .status-in-progress { background: #cce5ff; color: #004085; }
+        .status-completed { background: #d4edda; color: #155724; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 Meeting Agent Frontend</h1>
+        
+        <!-- API Configuration -->
+        <div class="section">
+            <h2>🔧 API Configuration</h2>
+            <div class="form-group">
+                <label for="apiUrl">API Base URL:</label>
+                <input type="text" id="apiUrl" value="http://localhost:3001" placeholder="http://localhost:3001">
+            </div>
+            <button onclick="checkHealth()">Check API Health</button>
+            <div id="healthResult" class="result" style="display: none;"></div>
+        </div>
+        
+        <!-- Meeting Processing -->
+        <div class="section">
+            <h2>📝 Process Meeting</h2>
+            <div class="form-group">
+                <label for="meetingId">Meeting ID:</label>
+                <input type="text" id="meetingId" value="meeting-frontend-123" placeholder="Enter meeting ID">
+            </div>
+            <div class="form-group">
+                <label for="participantId">Participant ID:</label>
+                <input type="text" id="participantId" value="participant-frontend-456" placeholder="Enter participant ID">
+            </div>
+            <div class="form-group">
+                <label for="audioData">Audio Data (Base64):</label>
+                <textarea id="audioData" placeholder="Enter base64 encoded audio data or leave as default for testing">base64_encoded_audio_data_here</textarea>
+            </div>
+            <button onclick="processMeeting()" id="processBtn">Process Meeting</button>
+            <div id="loading" class="loading">
+                <p>🔄 Processing meeting... Please wait...</p>
+            </div>
+            <div id="meetingResult" class="result" style="display: none;"></div>
+        </div>
+        
+        <!-- Results Display -->
+        <div class="section">
+            <h2>📊 Results</h2>
+            <div id="resultsContainer"></div>
+        </div>
+    </div>
+
+    <script>
+        // API functions
+        const API = {
+            baseUrl: 'http://localhost:3001',
+            
+            async checkHealth() {
+                const response = await fetch(`${this.baseUrl}/health`);
+                return await response.json();
+            },
+            
+            async processMeeting(data) {
+                const response = await fetch(`${this.baseUrl}/api/process-meeting`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                return await response.json();
+            }
+        };
+        
+        // UI Functions
+        function showResult(elementId, content, type = 'success') {
+            const element = document.getElementById(elementId);
+            element.innerHTML = content;
+            element.className = `result ${type}`;
+            element.style.display = 'block';
+        }
+        
+        function hideResult(elementId) {
+            document.getElementById(elementId).style.display = 'none';
+        }
+        
+        function showLoading() {
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('processBtn').disabled = true;
+        }
+        
+        function hideLoading() {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('processBtn').disabled = false;
+        }
+        
+        function formatDate(dateString) {
+            if (!dateString) return 'Not set';
+            const date = new Date(dateString);
+            return date.toLocaleDateString();
+        }
+        
+        function createTaskHTML(task) {
+            const priorityClass = `priority-${task.priority}`;
+            const statusClass = `status-${task.status}`;
+            
+            return `
+                <div class="task-item ${priorityClass}">
+                    <div class="task-title">${task.title}</div>
+                    <div class="task-details">
+                        <strong>Description:</strong> ${task.description}<br>
+                        <strong>Assignee:</strong> ${task.assignee}<br>
+                        <strong>Priority:</strong> ${task.priority}<br>
+                        <strong>Status:</strong> <span class="status-badge ${statusClass}">${task.status}</span><br>
+                        <strong>Due Date:</strong> ${formatDate(task.dueDate)}<br>
+                        <strong>Created:</strong> ${formatDate(task.createdAt)}
+                    </div>
+                </div>
+            `;
+        }
+        
+        // Event Handlers
+        async function checkHealth() {
+            try {
+                API.baseUrl = document.getElementById('apiUrl').value;
+                const health = await API.checkHealth();
+                
+                showResult('healthResult', `
+                    <h3>✅ API Health Check</h3>
+                    <p><strong>Status:</strong> ${health.status}</p>
+                    <p><strong>Service:</strong> ${health.service}</p>
+                    <p><strong>Version:</strong> ${health.version}</p>
+                    <p><strong>Timestamp:</strong> ${new Date(health.timestamp).toLocaleString()}</p>
+                `, 'success');
+            } catch (error) {
+                showResult('healthResult', `
+                    <h3>❌ Health Check Failed</h3>
+                    <p><strong>Error:</strong> ${error.message}</p>
+                    <p>Make sure the API server is running on the specified URL.</p>
+                `, 'error');
+            }
+        }
+        
+        async function processMeeting() {
+            const meetingId = document.getElementById('meetingId').value;
+            const participantId = document.getElementById('participantId').value;
+            const audioData = document.getElementById('audioData').value;
+            
+            if (!meetingId || !participantId || !audioData) {
+                showResult('meetingResult', `
+                    <h3>❌ Missing Data</h3>
+                    <p>Please fill in all required fields.</p>
+                `, 'error');
+                return;
+            }
+            
+            showLoading();
+            hideResult('meetingResult');
+            
+            try {
+                API.baseUrl = document.getElementById('apiUrl').value;
+                const result = await API.processMeeting({
+                    meetingId,
+                    participantId,
+                    audioData
+                });
+                
+                const data = result.data;
+                
+                // Display results
+                const resultsHTML = `
+                    <h3>✅ Meeting Processed Successfully</h3>
+                    
+                    <h4>📊 Processing Summary</h4>
+                    <ul>
+                        <li><strong>Meeting ID:</strong> ${data.meetingId}</li>
+                        <li><strong>Participant:</strong> ${data.participantId}</li>
+                        <li><strong>Speech Confidence:</strong> ${(data.processingSummary.speechToTextConfidence * 100).toFixed(1)}%</li>
+                        <li><strong>Tasks Extracted:</strong> ${data.processingSummary.tasksExtracted}</li>
+                        <li><strong>Tasks Updated:</strong> ${data.processingSummary.tasksUpdated}</li>
+                    </ul>
+                    
+                    <h4>👤 AI Character</h4>
+                    <ul>
+                        <li><strong>Name:</strong> ${data.aiCharacter.name}</li>
+                        <li><strong>Description:</strong> ${data.aiCharacter.description}</li>
+                        <li><strong>Mode:</strong> ${data.aiCharacter.mode}</li>
+                        <li><strong>Memory Items:</strong> ${data.aiCharacter.memory.length}</li>
+                    </ul>
+                    
+                    <h4>📝 Transcribed Text</h4>
+                    <p><em>"${data.transcribedText}"</em></p>
+                    
+                    <h4>📋 Tasks</h4>
+                    ${data.updatedTasks.map(task => createTaskHTML(task)).join('')}
+                `;
+                
+                document.getElementById('resultsContainer').innerHTML = resultsHTML;
+                showResult('meetingResult', 'Meeting processed successfully! Check the results below.', 'success');
+                
+            } catch (error) {
+                showResult('meetingResult', `
+                    <h3>❌ Processing Failed</h3>
+                    <p><strong>Error:</strong> ${error.message}</p>
+                    <p>Please check your API configuration and try again.</p>
+                `, 'error');
+            } finally {
+                hideLoading();
+            }
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 Meeting Agent Frontend loaded');
+            console.log('📡 API functions available');
+        });
+    </script>
+</body>
+</html> 

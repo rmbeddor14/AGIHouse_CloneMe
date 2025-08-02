@@ -46,3 +46,5 @@ but that keeps it in the foreground so put it in the background with
  - first is a test 
 
  - check out the video vibecodesuccess in the img folder and see how well it worked!! 
+
+ - also had it do a html frontend and that was super cool too, but i think it might add too much complexity when trying to connect everything 

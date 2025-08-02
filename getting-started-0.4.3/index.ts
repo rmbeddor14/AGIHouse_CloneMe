@@ -79,7 +79,7 @@ interface CharacterMemory {
 // MEETING AGENT NODE
 // ============================================================================
 
-const meetingAgentNodeType = registerCustomNodeType(
+export const meetingAgentNodeType = registerCustomNodeType(
   'MeetingAgent',
   [CustomInputDataType.TEXT],
   CustomOutputDataTypeTyped<MeetingOutput>(),
