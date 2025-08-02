@@ -35,4 +35,9 @@ nohup uvicorn generate_tasks:app --host 0.0.0.0 --port 8000 > uvicorn.log 2>&1 &
 but that keeps it in the foreground so put it in the background with
 `ps aux | grep uvicorn` check to see the PID
 `kill <PID>`
- 
+
+
+ ## Vibe Coded InWorld
+
+ - audi from inworld taught me how to vibe code inworld graph with cursor - worked great! 
+ - first is a test 

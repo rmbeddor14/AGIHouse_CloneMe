@@ -371,7 +371,8 @@ async function main() {
       console.log(`      Priority: ${task.priority}`);
       console.log(`      Status: ${task.status}`);
       if (task.dueDate) {
-        console.log(`      Due Date: ${task.dueDate.toLocaleDateString()}`);
+        const dueDate = typeof task.dueDate === 'string' ? new Date(task.dueDate) : task.dueDate;
+        console.log(`      Due Date: ${dueDate.toLocaleDateString()}`);
       }
       console.log('');
     });
