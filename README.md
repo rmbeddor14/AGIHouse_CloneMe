@@ -39,5 +39,8 @@ but that keeps it in the foreground so put it in the background with
 
  ## Vibe Coded InWorld
 
+ - BTW I gitignored the files from the getting started but you can recreate this by downloading the getting started package 
+ - runtime quickstart https://docs.inworld.ai/docs/node/quickstart
+
  - audi from inworld taught me how to vibe code inworld graph with cursor - worked great! 
  - first is a test 
