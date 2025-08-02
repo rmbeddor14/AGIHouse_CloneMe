@@ -44,3 +44,5 @@ but that keeps it in the foreground so put it in the background with
 
  - audi from inworld taught me how to vibe code inworld graph with cursor - worked great! 
  - first is a test 
+
+ - check out the video vibecodesuccess in the img folder and see how well it worked!! 
