@@ -13,7 +13,7 @@ class TranscriptInput(BaseModel):
 def extract_tasks(data: TranscriptInput):
     prompt = f"""
 You are an assistant that extracts a clear list of action items or tasks from transcripts.
-Transcript:
+Transcript: 
 \"\"\"
 {data.transcript}
 \"\"\"
