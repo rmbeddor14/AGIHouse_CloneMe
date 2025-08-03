@@ -15,7 +15,7 @@ And yes, some follow-ups require **more meetings** (ugh, *meeting inception* ðŸ˜
 ðŸŽ‰ **No more meetings!!!!**
 
 
-<img src="img/my_picture.png" width="400" />
+<img src="img/my_picture_cropped.png" width="400" />
 
 *cloning myself because the world needs more of me!*
 
