@@ -14,6 +14,10 @@ And yes, some follow-ups require **more meetings** (ugh, *meeting inception* �
 💬 And your clone could handle the **follow-up meeting** for you  
 🎉 **No more meetings!!!!**
 
+
+<img src="img/my_picture.png" width="400" />
+
+
 ## 🛠️ Demo: AI-Powered Meeting Clone
 
 This is a **bare-bones prototype**, but it works!
