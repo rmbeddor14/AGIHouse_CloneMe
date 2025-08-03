@@ -1,33 +1,38 @@
-# AGI House Hackathon 08-02-2025
+# 🧠 AGI House Hackathon – 08.02.2025
 
-## Pitch
-Ditch your to-do list!
-Imagine if all your meeting follow-ups happened automatically.
+## 🚀 Pitch: No More To-Do Lists!
 
-With AI, we can make this a reality—live during meetings or afterward using the transcript—to handle follow-ups seamlessly.
+**Ditch Your To-Do List** Imagine if your "action items" from a meeting automatically happened for you!
 
-Sometimes, the follow ups from a meeting including having a meeting with another person. Ugh, meeting inception! 
+Thanks to **AI**, we can generate and **complete your follow-ups**—in real time or using transcripts after the fact.
 
-But what if we could use the transcript from our *original meeting* to clone ourselves to handle the *follow up* meeting. Yay! No more meetings!!
+And yes, some follow-ups require **more meetings** (ugh, *meeting inception* 😩). But what if...
 
-## Demo
-Our demo is a "bare bones" version of this. 
+🤖 **You could clone yourself** using your meeting transcript  
+💬 And your clone could handle the **follow-up meeting** for you  
+🎉 **No more meetings!!!!**
 
-I built an API that takes a meeting transcript to generate **tasks**. 
+## 🛠️ Demo: AI-Powered Meeting Clone
 
-Right now you just upload the transcript to an interface (in the future, this could be a seamless app integrated with your all-in-one meeting software).
+This is a **bare-bones prototype**, but it works!
 
-If you select a task to **have a follow up meeting**, your task and previous meeting transcript will then be used to **"clone" you into a chatbot** to handle the next meeting. 
+- 📄 Upload a **meeting transcript**
+- ⚡ API generates **tasks from the meeting**
+- 👥 If a task is a **follow-up meeting**, we use the transcript + task to **create a chatbot version of you**
+- 🧑‍💼 Your clone handles the next meeting (think: simulated Slack convo)
 
-You can imagine this being a simulation of slacking the coworker that you've been asked to follow up with. 
+Future vision: seamless integration into your favorite **meeting platforms**.
 
-[![Watch the video](img/sample_image.png)](https://www.youtube.com/watch?v=9crb3mSyFv8)
-
+[![▶️ Watch the demo](img/sample_image.png)](https://www.youtube.com/watch?v=9crb3mSyFv8)
 
 
 
 ## Architecture
-https://docs.google.com/drawings/d/1Ky5M7jLHlnTaymkUq50rNUKajuXyqPTLvEGs45hiuuo/edits
+
+[![▶️ Watch the demo](img/Diagram.png)](https://docs.google.com/drawings/d/1Ky5M7jLHlnTaymkUq50rNUKajuXyqPTLvEGs45hiuuo/edits)
+
+
+
 
 ## Transcript -> Tasks (generate_tasks_api)
 
@@ -65,15 +70,25 @@ but that keeps it in the foreground so put it in the background with
 
 ## Chatbot
 
+`streamlit run app.py`
+
 
  ## Vibe Coded InWorld
 
- - BTW I gitignored the files from the getting started but you can recreate this by downloading the getting started package 
+ - Thanks to Audi from InWorld for giving me a whole demo on how to use their product via vibe coding with Cursor! So fun, I've included some cool videos here. 
+
+- InWorld could be used in the future to scale this project and bring it to life! I love the concept behind InWorld and can't wait to follow all of their success in the future! 
+
+
+### vibe coding with InWorld
+[![](img/vibecode_cursor_image.png)](
+https://youtu.be/ln39A0MHB5I)
+
+
+### after I had it add a frontend 
+[![](img/vibecode_cursor_frontend_addon.png)](
+https://www.youtube.com/watch?v=Bg6pdtxNZ98)
+
+
  - runtime quickstart https://docs.inworld.ai/docs/node/quickstart
 
- - audi from inworld taught me how to vibe code inworld graph with cursor - worked great! 
- - first is a test 
-
- - check out the video vibecodesuccess in the img folder and see how well it worked!! 
-
- - also had it do a html frontend and that was super cool too, but i think it might add too much complexity when trying to connect everything 
