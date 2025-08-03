@@ -2,7 +2,9 @@
 
 ## 🚀 Pitch: No More To-Do Lists!
 
-**Ditch Your To-Do List** Imagine if your "action items" from a meeting automatically happened for you!
+**Ditch Your To-Do List!!!** 
+
+Imagine if your "action items" from a meeting automatically happened for you!
 
 Thanks to **AI**, we can generate and **complete your follow-ups**—in real time or using transcripts after the fact.
 
