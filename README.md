@@ -17,6 +17,8 @@ And yes, some follow-ups require **more meetings** (ugh, *meeting inception* �
 
 <img src="img/my_picture.png" width="400" />
 
+*cloning myself because the world needs more of me!*
+
 
 ## 🛠️ Demo: AI-Powered Meeting Clone
 
